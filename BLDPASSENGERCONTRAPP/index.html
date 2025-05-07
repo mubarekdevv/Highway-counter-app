@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vehicle Counter</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./CSS/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>VEHICLE COUNTER – HIGHWAY SURVEY</h1>
+    <h2 id="count-el">0</h2>
+    <div class="button-group">
+      <button id="count-btn" onclick="increment()">COUNT</button>
+      <button id="save-btn" onclick="save()">SAVE</button>
+      <button id="reset-btn" onclick="resetTotal()">RESET TOTAL</button>
+
+    </div>
+    <p id="save-el">Vehicles recorded per session: </p>
+    <p id="total-count">Total: 0 vehicles</p>
+
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
