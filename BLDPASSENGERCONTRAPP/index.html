@@ -1,328 +1,902 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vehicle Counter</title>
-  <link rel="stylesheet" href="./CSS/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-  <div class="container">
-    <div class="card">
-      <div class="card-header">
-        <div class="header-content">
-          <div class="title-container">
-            <h1 class="card-title">Vehicle Counter</h1>
-            <p class="card-description">Track vehicle movements at intersections</p>
-          </div>
-          <div class="stopwatch-container">
-            <svg class="timer-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span class="timer-display" id="timer-display">00:00:00</span>
-            <div class="timer-controls">
-              <button class="timer-btn play-btn" id="play-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              </button>
-              <button class="timer-btn pause-btn hidden" id="pause-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-              </button>
-              <button class="timer-btn stop-btn" id="stop-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><rect x="9" y="9" width="6" height="6"/></svg>
-              </button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vehicle Counter</title>
+    <link rel="stylesheet" href="./CSS/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <div class="header-content">
+            <div class="title-container">
+              <h1 class="card-title">Vehicle Counter</h1>
+              <p class="card-description">
+                Track vehicle movements at intersections
+              </p>
+            </div>
+            <div class="stopwatch-container">
+              <svg
+                class="timer-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              <span class="timer-display" id="timer-display">00:00:00</span>
+              <div class="timer-controls">
+                <button class="timer-btn play-btn" id="play-btn">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                  </svg>
+                </button>
+                <button class="timer-btn pause-btn hidden" id="pause-btn">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="6" y="4" width="4" height="16" />
+                    <rect x="14" y="4" width="4" height="16" />
+                  </svg>
+                </button>
+                <button class="timer-btn stop-btn" id="stop-btn">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <rect x="9" y="9" width="6" height="6" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="card-content">
-        <div class="tabs">
-          <div class="tabs-list">
-            <button class="tab-trigger active" data-tab="u-turn">
-              <svg class="tab-icon" fill="#050000" height="16" width="16" version="1.1" 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  xmlns:xlink="http://www.w3.org/1999/xlink" 
-                  viewBox="-40 -40 575 575" 
-                  xml:space="preserve" 
-                  transform="matrix(-1, 0, 0, 1, 0, 0)" 
-                  stroke="#050000">
-                <g>
-                  <path d="M431.552,183.655c-1.676-1.479-4.148-1.634-6.005-0.382l-35.622,23.995v-43.182 
+        <div class="card-content">
+          <div class="tabs">
+            <div class="tabs-list">
+              <button class="tab-trigger active" data-tab="u-turn">
+                <svg
+                  class="tab-icon"
+                  fill="#050000"
+                  height="16"
+                  width="16"
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  viewBox="-40 -40 575 575"
+                  xml:space="preserve"
+                  transform="matrix(-1, 0, 0, 1, 0, 0)"
+                  stroke="#050000"
+                >
+                  <g>
+                    <path
+                      d="M431.552,183.655c-1.676-1.479-4.148-1.634-6.005-0.382l-35.622,23.995v-43.182 
                     C389.925,73.605,316.319,0,225.838,0C135.357,0,61.751,73.605,61.751,164.087v330.915h83.319V164.087 
                     c0-44.532,36.226-80.767,80.768-80.767c44.54,0,80.765,36.234,80.765,80.767v43.182l-35.605-23.986 
                     c-1.855-1.254-4.328-1.098-6.006,0.373c-1.693,1.474-2.18,3.906-1.188,5.916l80.033,161.914
                     c0.83,1.685,2.539,2.751,4.427,2.751 
-                    c1.889,0,3.597-1.066,4.427-2.751l80.049-161.914C433.734,187.561,433.245,185.129,431.552,183.655z"/>
-                </g>
-              </svg>
-              <span class="tab-text">U-Turn</span>
-              <span class="tab-text-mobile">U</span>
-              <span class="badge tab-count" id="u-turn-count">0</span>
-            </button>
-            <button class="tab-trigger" data-tab="left-turn">
-              <svg class="tab-icon" height="16" width="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#050000" transform="rotate(180)matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18 4V12C18 12.663 17.7366 13.2989 17.2678 13.7678C16.7989 14.2366 16.163 14.5 15.5 14.5H9V12C9 11.5955 8.75636 11.2309 8.38268 11.0761C8.00901 10.9213 7.57889 11.0069 7.29289 11.2929L3.29289 15.2929C2.90237 15.6834 2.90237 16.3166 3.29289 16.7071L7.29289 20.7071C7.57889 20.9931 8.00901 21.0786 8.38268 20.9238C8.75636 20.7691 9 20.4044 9 20V17.5H15.5C16.9587 17.5 18.3576 16.9205 19.3891 15.8891C20.4205 14.8576 21 13.4587 21 12V4C21 3.44772 20.5523 3 20 3H19C18.4477 3 18 3.44772 18 4Z" fill="#000000"></path> </g></svg>
-              <span class="tab-text">Left-Turn</span>
-              <span class="tab-text-mobile">L</span>
-              <span class="badge tab-count" id="left-turn-count">0</span>
-            </button>
-            <button class="tab-trigger" data-tab="through">
-              <svg class="tab-icon" width="16" height="16"  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#050000" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7.07615 16.6173C7.23093 16.2436 7.59557 16 8.00003 16H10.5V3C10.5 2.44772 10.9477 2 11.5 2H12.5C13.0523 2 13.5 2.44772 13.5 3V16H16C16.4045 16 16.7691 16.2436 16.9239 16.6173C17.0787 16.991 16.9931 17.4211 16.7071 17.7071L12.7071 21.7071C12.3166 22.0976 11.6834 22.0976 11.2929 21.7071L7.29292 17.7071C7.00692 17.4211 6.92137 16.991 7.07615 16.6173Z" fill="#000000"></path> </g></svg>
-              <span class="tab-text">Through</span>
-              <span class="tab-text-mobile">T</span>
-              <span class="badge tab-count" id="through-count">0</span>
-            </button>
-            <button class="tab-trigger" data-tab="right-turn">
-              <svg class="tab-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18 4V12C18 12.663 17.7366 13.2989 17.2678 13.7678C16.7989 14.2366 16.163 14.5 15.5 14.5H9V12C9 11.5955 8.75636 11.2309 8.38268 11.0761C8.00901 10.9213 7.57889 11.0069 7.29289 11.2929L3.29289 15.2929C2.90237 15.6834 2.90237 16.3166 3.29289 16.7071L7.29289 20.7071C7.57889 20.9931 8.00901 21.0786 8.38268 20.9238C8.75636 20.7691 9 20.4044 9 20V17.5H15.5C16.9587 17.5 18.3576 16.9205 19.3891 15.8891C20.4205 14.8576 21 13.4587 21 12V4C21 3.44772 20.5523 3 20 3H19C18.4477 3 18 3.44772 18 4Z" fill="#000000"></path> </g></svg>
-              <span class="tab-text">Right-Turn</span>
-              <span class="tab-text-mobile">R</span>
-              <span class="badge tab-count" id="right-turn-count">0</span>
-            </button>
-          </div>
+                    c1.889,0,3.597-1.066,4.427-2.751l80.049-161.914C433.734,187.561,433.245,185.129,431.552,183.655z"
+                    />
+                  </g>
+                </svg>
+                <span class="tab-text">U-Turn</span>
+                <span class="tab-text-mobile">U</span>
+                <span class="badge tab-count" id="u-turn-count">0</span>
+              </button>
+              <button class="tab-trigger" data-tab="left-turn">
+                <svg
+                  class="tab-icon"
+                  height="16"
+                  width="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  stroke="#050000"
+                  transform="rotate(180)matrix(-1, 0, 0, 1, 0, 0)"
+                >
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path
+                      d="M18 4V12C18 12.663 17.7366 13.2989 17.2678 13.7678C16.7989 14.2366 16.163 14.5 15.5 14.5H9V12C9 11.5955 8.75636 11.2309 8.38268 11.0761C8.00901 10.9213 7.57889 11.0069 7.29289 11.2929L3.29289 15.2929C2.90237 15.6834 2.90237 16.3166 3.29289 16.7071L7.29289 20.7071C7.57889 20.9931 8.00901 21.0786 8.38268 20.9238C8.75636 20.7691 9 20.4044 9 20V17.5H15.5C16.9587 17.5 18.3576 16.9205 19.3891 15.8891C20.4205 14.8576 21 13.4587 21 12V4C21 3.44772 20.5523 3 20 3H19C18.4477 3 18 3.44772 18 4Z"
+                      fill="#000000"
+                    ></path>
+                  </g>
+                </svg>
+                <span class="tab-text">Left-Turn</span>
+                <span class="tab-text-mobile">L</span>
+                <span class="badge tab-count" id="left-turn-count">0</span>
+              </button>
+              <button class="tab-trigger" data-tab="through">
+                <svg
+                  class="tab-icon"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  stroke="#050000"
+                  transform="rotate(180)"
+                >
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path
+                      d="M7.07615 16.6173C7.23093 16.2436 7.59557 16 8.00003 16H10.5V3C10.5 2.44772 10.9477 2 11.5 2H12.5C13.0523 2 13.5 2.44772 13.5 3V16H16C16.4045 16 16.7691 16.2436 16.9239 16.6173C17.0787 16.991 16.9931 17.4211 16.7071 17.7071L12.7071 21.7071C12.3166 22.0976 11.6834 22.0976 11.2929 21.7071L7.29292 17.7071C7.00692 17.4211 6.92137 16.991 7.07615 16.6173Z"
+                      fill="#000000"
+                    ></path>
+                  </g>
+                </svg>
+                <span class="tab-text">Through</span>
+                <span class="tab-text-mobile">T</span>
+                <span class="badge tab-count" id="through-count">0</span>
+              </button>
+              <button class="tab-trigger" data-tab="right-turn">
+                <svg
+                  class="tab-icon"
+                  viewBox="0 0 24 24"
+                  width="16"
+                  height="16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  transform="rotate(180)"
+                >
+                  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path
+                      d="M18 4V12C18 12.663 17.7366 13.2989 17.2678 13.7678C16.7989 14.2366 16.163 14.5 15.5 14.5H9V12C9 11.5955 8.75636 11.2309 8.38268 11.0761C8.00901 10.9213 7.57889 11.0069 7.29289 11.2929L3.29289 15.2929C2.90237 15.6834 2.90237 16.3166 3.29289 16.7071L7.29289 20.7071C7.57889 20.9931 8.00901 21.0786 8.38268 20.9238C8.75636 20.7691 9 20.4044 9 20V17.5H15.5C16.9587 17.5 18.3576 16.9205 19.3891 15.8891C20.4205 14.8576 21 13.4587 21 12V4C21 3.44772 20.5523 3 20 3H19C18.4477 3 18 3.44772 18 4Z"
+                      fill="#000000"
+                    ></path>
+                  </g>
+                </svg>
+                <span class="tab-text">Right-Turn</span>
+                <span class="tab-text-mobile">R</span>
+                <span class="badge tab-count" id="right-turn-count">0</span>
+              </button>
+            </div>
 
-          <div class="tab-content active" id="u-turn-content">
-            <div class="turn-header">
-              <div class="turn-title">
-                <!-- Updated U-Turn icon to match tab -->
-                <svg class="turn-icon" fill="#050000" height="16" width="16" version="1.1" 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    xmlns:xlink="http://www.w3.org/1999/xlink" 
-                    viewBox="-40 -40 575 575" 
-                    xml:space="preserve" 
-                    transform="matrix(-1, 0, 0, 1, 0, 0)" 
-                    stroke="#050000">
-                  <g>
-                    <path d="M431.552,183.655c-1.676-1.479-4.148-1.634-6.005-0.382l-35.622,23.995v-43.182 
+            <div class="tab-content active" id="u-turn-content">
+              <div class="turn-header">
+                <div class="turn-title">
+                  <!-- Updated U-Turn icon to match tab -->
+                  <svg
+                    class="turn-icon"
+                    fill="#050000"
+                    height="16"
+                    width="16"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    viewBox="-40 -40 575 575"
+                    xml:space="preserve"
+                    transform="matrix(-1, 0, 0, 1, 0, 0)"
+                    stroke="#050000"
+                  >
+                    <g>
+                      <path
+                        d="M431.552,183.655c-1.676-1.479-4.148-1.634-6.005-0.382l-35.622,23.995v-43.182 
                       C389.925,73.605,316.319,0,225.838,0C135.357,0,61.751,73.605,61.751,164.087v330.915h83.319V164.087 
                       c0-44.532,36.226-80.767,80.768-80.767c44.54,0,80.765,36.234,80.765,80.767v43.182l-35.605-23.986 
                       c-1.855-1.254-4.328-1.098-6.006,0.373c-1.693,1.474-2.18,3.906-1.188,5.916l80.033,161.914
                       c0.83,1.685,2.539,2.751,4.427,2.751 
-                      c1.889,0,3.597-1.066,4.427-2.751l80.049-161.914C433.734,187.561,433.245,185.129,431.552,183.655z"/>
-                  </g>
-                </svg>
-                U-Turn
+                      c1.889,0,3.597-1.066,4.427-2.751l80.049-161.914C433.734,187.561,433.245,185.129,431.552,183.655z"
+                      />
+                    </g>
+                  </svg>
+                  U-Turn
+                </div>
+                <div class="badge turn-total">
+                  Total: <span id="u-turn-total">0</span>
+                </div>
               </div>
-              <div class="badge turn-total">Total: <span id="u-turn-total">0</span></div>
+              <div class="vehicle-grid">
+                <!-- Private Cars -->
+                <div class="vehicle-card">
+                  <div class="vehicle-header">
+                    <h3 class="vehicle-title">
+                      <svg
+                        class="vehicle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.6-1.2-.9-1.9-1L9 6c-.9 0-1.7.5-2.2 1.3L5 10l-3 .5c-1 .2-1.7 1-1.9 2v3c0 .6.4 1 1 1h2"
+                        />
+                        <circle cx="7" cy="17" r="2" />
+                        <path d="M9 17h6" />
+                        <circle cx="17" cy="17" r="2" />
+                      </svg>
+                      Private Cars
+                    </h3>
+                  </div>
+                  <div class="vehicle-content">
+                    <span
+                      class="badge vehicle-count"
+                      id="u-turn-passenger-car-count"
+                      >0</span
+                    >
+                    <button
+                      class="count-btn"
+                      data-turn="u-turn"
+                      data-vehicle="passenger-car"
+                    >
+                      Count +1
+                    </button>
+                  </div>
+                </div>
+                <!-- Buses -->
+                <div class="vehicle-card">
+                  <div class="vehicle-header">
+                    <h3 class="vehicle-title">
+                      <svg
+                        class="vehicle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M8 6v6" />
+                        <path d="M15 6v6" />
+                        <path d="M2 12h19.6" />
+                        <path
+                          d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"
+                        />
+                        <circle cx="7" cy="18" r="2" />
+                        <path d="M9 18h5" />
+                        <circle cx="16" cy="18" r="2" />
+                      </svg>
+                      Buses
+                    </h3>
+                  </div>
+                  <div class="vehicle-content">
+                    <span class="badge vehicle-count" id="u-turn-bus-count"
+                      >0</span
+                    >
+                    <button
+                      class="count-btn"
+                      data-turn="u-turn"
+                      data-vehicle="bus"
+                    >
+                      Count +1
+                    </button>
+                  </div>
+                </div>
+                <!-- Trucks -->
+                <div class="vehicle-card">
+                  <div class="vehicle-header">
+                    <h3 class="vehicle-title">
+                      <svg
+                        class="vehicle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M10 17h4V5H2v12h3" />
+                        <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5" />
+                        <path d="M14 17h1" />
+                        <circle cx="7.5" cy="17.5" r="2.5" />
+                        <circle cx="17.5" cy="17.5" r="2.5" />
+                      </svg>
+                      Trucks
+                    </h3>
+                  </div>
+                  <div class="vehicle-content">
+                    <span class="badge vehicle-count" id="u-turn-truck-count"
+                      >0</span
+                    >
+                    <button
+                      class="count-btn"
+                      data-turn="u-turn"
+                      data-vehicle="truck"
+                    >
+                      Count +1
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="vehicle-grid">
-              <!-- Passenger Cars -->
-              <div class="vehicle-card">
-                <div class="vehicle-header">
-                  <h3 class="vehicle-title">
-                    <svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.6-1.2-.9-1.9-1L9 6c-.9 0-1.7.5-2.2 1.3L5 10l-3 .5c-1 .2-1.7 1-1.9 2v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
-                    Passenger Cars
-                  </h3>
-                </div>
-                <div class="vehicle-content">
-                  <span class="badge vehicle-count" id="u-turn-passenger-car-count">0</span>
-                  <button class="count-btn" data-turn="u-turn" data-vehicle="passenger-car">Count +1</button>
-                </div>
-              </div>
-              <!-- Buses -->
-              <div class="vehicle-card">
-                <div class="vehicle-header">
-                  <h3 class="vehicle-title">
-                    <svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6"/><path d="M15 6v6"/><path d="M2 12h19.6"/><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/><circle cx="7" cy="18" r="2"/><path d="M9 18h5"/><circle cx="16" cy="18" r="2"/></svg>
-                    Buses
-                  </h3>
-                </div>
-                <div class="vehicle-content">
-                  <span class="badge vehicle-count" id="u-turn-bus-count">0</span>
-                  <button class="count-btn" data-turn="u-turn" data-vehicle="bus">Count +1</button>
-                </div>
-              </div>
-              <!-- Trucks -->
-              <div class="vehicle-card">
-                <div class="vehicle-header">
-                  <h3 class="vehicle-title">
-                    <svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5"/><path d="M14 17h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
-                    Trucks
-                  </h3>
-                </div>
-                <div class="vehicle-content">
-                  <span class="badge vehicle-count" id="u-turn-truck-count">0</span>
-                  <button class="count-btn" data-turn="u-turn" data-vehicle="truck">Count +1</button>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="tab-content" id="left-turn-content">
-            <div class="turn-header">
-              <div class="turn-title">
-                <!-- Updated Left-Turn icon to match tab -->
-                <svg class="turn-icon" height="16" width="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#050000" transform="rotate(180)matrix(-1, 0, 0, 1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18 4V12C18 12.663 17.7366 13.2989 17.2678 13.7678C16.7989 14.2366 16.163 14.5 15.5 14.5H9V12C9 11.5955 8.75636 11.2309 8.38268 11.0761C8.00901 10.9213 7.57889 11.0069 7.29289 11.2929L3.29289 15.2929C2.90237 15.6834 2.90237 16.3166 3.29289 16.7071L7.29289 20.7071C7.57889 20.9931 8.00901 21.0786 8.38268 20.9238C8.75636 20.7691 9 20.4044 9 20V17.5H15.5C16.9587 17.5 18.3576 16.9205 19.3891 15.8891C20.4205 14.8576 21 13.4587 21 12V4C21 3.44772 20.5523 3 20 3H19C18.4477 3 18 3.44772 18 4Z" fill="#000000"></path> </g></svg>
-                Left-Turn
+            <div class="tab-content" id="left-turn-content">
+              <div class="turn-header">
+                <div class="turn-title">
+                  <!-- Updated Left-Turn icon to match tab -->
+                  <svg
+                    class="turn-icon"
+                    height="16"
+                    width="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    stroke="#050000"
+                    transform="rotate(180)matrix(-1, 0, 0, 1, 0, 0)"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path
+                        d="M18 4V12C18 12.663 17.7366 13.2989 17.2678 13.7678C16.7989 14.2366 16.163 14.5 15.5 14.5H9V12C9 11.5955 8.75636 11.2309 8.38268 11.0761C8.00901 10.9213 7.57889 11.0069 7.29289 11.2929L3.29289 15.2929C2.90237 15.6834 2.90237 16.3166 3.29289 16.7071L7.29289 20.7071C7.57889 20.9931 8.00901 21.0786 8.38268 20.9238C8.75636 20.7691 9 20.4044 9 20V17.5H15.5C16.9587 17.5 18.3576 16.9205 19.3891 15.8891C20.4205 14.8576 21 13.4587 21 12V4C21 3.44772 20.5523 3 20 3H19C18.4477 3 18 3.44772 18 4Z"
+                        fill="#000000"
+                      ></path>
+                    </g>
+                  </svg>
+                  Left-Turn
+                </div>
+                <div class="badge turn-total">
+                  Total: <span id="left-turn-total">0</span>
+                </div>
               </div>
-              <div class="badge turn-total">Total: <span id="left-turn-total">0</span></div>
+              <div class="vehicle-grid">
+                <!-- Private Cars -->
+                <div class="vehicle-card">
+                  <div class="vehicle-header">
+                    <h3 class="vehicle-title">
+                      <svg
+                        class="vehicle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.6-1.2-.9-1.9-1L9 6c-.9 0-1.7.5-2.2 1.3L5 10l-3 .5c-1 .2-1.7 1-1.9 2v3c0 .6.4 1 1 1h2"
+                        />
+                        <circle cx="7" cy="17" r="2" />
+                        <path d="M9 17h6" />
+                        <circle cx="17" cy="17" r="2" />
+                      </svg>
+                      Private Cars
+                    </h3>
+                  </div>
+                  <div class="vehicle-content">
+                    <span
+                      class="badge vehicle-count"
+                      id="left-turn-passenger-car-count"
+                      >0</span
+                    >
+                    <button
+                      class="count-btn"
+                      data-turn="left-turn"
+                      data-vehicle="passenger-car"
+                    >
+                      Count +1
+                    </button>
+                  </div>
+                </div>
+                <!-- Buses -->
+                <div class="vehicle-card">
+                  <div class="vehicle-header">
+                    <h3 class="vehicle-title">
+                      <svg
+                        class="vehicle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M8 6v6" />
+                        <path d="M15 6v6" />
+                        <path d="M2 12h19.6" />
+                        <path
+                          d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"
+                        />
+                        <circle cx="7" cy="18" r="2" />
+                        <path d="M9 18h5" />
+                        <circle cx="16" cy="18" r="2" />
+                      </svg>
+                      Buses
+                    </h3>
+                  </div>
+                  <div class="vehicle-content">
+                    <span class="badge vehicle-count" id="left-turn-bus-count"
+                      >0</span
+                    >
+                    <button
+                      class="count-btn"
+                      data-turn="left-turn"
+                      data-vehicle="bus"
+                    >
+                      Count +1
+                    </button>
+                  </div>
+                </div>
+                <!-- Trucks -->
+                <div class="vehicle-card">
+                  <div class="vehicle-header">
+                    <h3 class="vehicle-title">
+                      <svg
+                        class="vehicle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M10 17h4V5H2v12h3" />
+                        <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5" />
+                        <path d="M14 17h1" />
+                        <circle cx="7.5" cy="17.5" r="2.5" />
+                        <circle cx="17.5" cy="17.5" r="2.5" />
+                      </svg>
+                      Trucks
+                    </h3>
+                  </div>
+                  <div class="vehicle-content">
+                    <span class="badge vehicle-count" id="left-turn-truck-count"
+                      >0</span
+                    >
+                    <button
+                      class="count-btn"
+                      data-turn="left-turn"
+                      data-vehicle="truck"
+                    >
+                      Count +1
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="vehicle-grid">
-              <!-- Passenger Cars -->
-              <div class="vehicle-card">
-                <div class="vehicle-header">
-                  <h3 class="vehicle-title">
-                    <svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.6-1.2-.9-1.9-1L9 6c-.9 0-1.7.5-2.2 1.3L5 10l-3 .5c-1 .2-1.7 1-1.9 2v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
-                    Passenger Cars
-                  </h3>
-                </div>
-                <div class="vehicle-content">
-                  <span class="badge vehicle-count" id="left-turn-passenger-car-count">0</span>
-                  <button class="count-btn" data-turn="left-turn" data-vehicle="passenger-car">Count +1</button>
-                </div>
-              </div>
-              <!-- Buses -->
-              <div class="vehicle-card">
-                <div class="vehicle-header">
-                  <h3 class="vehicle-title">
-                    <svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6"/><path d="M15 6v6"/><path d="M2 12h19.6"/><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/><circle cx="7" cy="18" r="2"/><path d="M9 18h5"/><circle cx="16" cy="18" r="2"/></svg>
-                    Buses
-                  </h3>
-                </div>
-                <div class="vehicle-content">
-                  <span class="badge vehicle-count" id="left-turn-bus-count">0</span>
-                  <button class="count-btn" data-turn="left-turn" data-vehicle="bus">Count +1</button>
-                </div>
-              </div>
-              <!-- Trucks -->
-              <div class="vehicle-card">
-                <div class="vehicle-header">
-                  <h3 class="vehicle-title">
-                    <svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5"/><path d="M14 17h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
-                    Trucks
-                  </h3>
-                </div>
-                <div class="vehicle-content">
-                  <span class="badge vehicle-count" id="left-turn-truck-count">0</span>
-                  <button class="count-btn" data-turn="left-turn" data-vehicle="truck">Count +1</button>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="tab-content" id="through-content">
-            <div class="turn-header">
-              <div class="turn-title">
-                <!-- Updated Through icon to match tab -->
-                <svg class="turn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#050000" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7.07615 16.6173C7.23093 16.2436 7.59557 16 8.00003 16H10.5V3C10.5 2.44772 10.9477 2 11.5 2H12.5C13.0523 2 13.5 2.44772 13.5 3V16H16C16.4045 16 16.7691 16.2436 16.9239 16.6173C17.0787 16.991 16.9931 17.4211 16.7071 17.7071L12.7071 21.7071C12.3166 22.0976 11.6834 22.0976 11.2929 21.7071L7.29292 17.7071C7.00692 17.4211 6.92137 16.991 7.07615 16.6173Z" fill="#000000"></path> </g></svg>
-                Through
+            <div class="tab-content" id="through-content">
+              <div class="turn-header">
+                <div class="turn-title">
+                  <!-- Updated Through icon to match tab -->
+                  <svg
+                    class="turn-icon"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    stroke="#050000"
+                    transform="rotate(180)"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path
+                        d="M7.07615 16.6173C7.23093 16.2436 7.59557 16 8.00003 16H10.5V3C10.5 2.44772 10.9477 2 11.5 2H12.5C13.0523 2 13.5 2.44772 13.5 3V16H16C16.4045 16 16.7691 16.2436 16.9239 16.6173C17.0787 16.991 16.9931 17.4211 16.7071 17.7071L12.7071 21.7071C12.3166 22.0976 11.6834 22.0976 11.2929 21.7071L7.29292 17.7071C7.00692 17.4211 6.92137 16.991 7.07615 16.6173Z"
+                        fill="#000000"
+                      ></path>
+                    </g>
+                  </svg>
+                  Through
+                </div>
+                <div class="badge turn-total">
+                  Total: <span id="through-total">0</span>
+                </div>
               </div>
-              <div class="badge turn-total">Total: <span id="through-total">0</span></div>
+              <div class="vehicle-grid">
+                <!-- Private Cars -->
+                <div class="vehicle-card">
+                  <div class="vehicle-header">
+                    <h3 class="vehicle-title">
+                      <svg
+                        class="vehicle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.6-1.2-.9-1.9-1L9 6c-.9 0-1.7.5-2.2 1.3L5 10l-3 .5c-1 .2-1.7 1-1.9 2v3c0 .6.4 1 1 1h2"
+                        />
+                        <circle cx="7" cy="17" r="2" />
+                        <path d="M9 17h6" />
+                        <circle cx="17" cy="17" r="2" />
+                      </svg>
+                      Private Cars
+                    </h3>
+                  </div>
+                  <div class="vehicle-content">
+                    <span
+                      class="badge vehicle-count"
+                      id="through-passenger-car-count"
+                      >0</span
+                    >
+                    <button
+                      class="count-btn"
+                      data-turn="through"
+                      data-vehicle="passenger-car"
+                    >
+                      Count +1
+                    </button>
+                  </div>
+                </div>
+                <!-- Buses -->
+                <div class="vehicle-card">
+                  <div class="vehicle-header">
+                    <h3 class="vehicle-title">
+                      <svg
+                        class="vehicle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M8 6v6" />
+                        <path d="M15 6v6" />
+                        <path d="M2 12h19.6" />
+                        <path
+                          d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"
+                        />
+                        <circle cx="7" cy="18" r="2" />
+                        <path d="M9 18h5" />
+                        <circle cx="16" cy="18" r="2" />
+                      </svg>
+                      Buses
+                    </h3>
+                  </div>
+                  <div class="vehicle-content">
+                    <span class="badge vehicle-count" id="through-bus-count"
+                      >0</span
+                    >
+                    <button
+                      class="count-btn"
+                      data-turn="through"
+                      data-vehicle="bus"
+                    >
+                      Count +1
+                    </button>
+                  </div>
+                </div>
+                <!-- Trucks -->
+                <div class="vehicle-card">
+                  <div class="vehicle-header">
+                    <h3 class="vehicle-title">
+                      <svg
+                        class="vehicle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M10 17h4V5H2v12h3" />
+                        <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5" />
+                        <path d="M14 17h1" />
+                        <circle cx="7.5" cy="17.5" r="2.5" />
+                        <circle cx="17.5" cy="17.5" r="2.5" />
+                      </svg>
+                      Trucks
+                    </h3>
+                  </div>
+                  <div class="vehicle-content">
+                    <span class="badge vehicle-count" id="through-truck-count"
+                      >0</span
+                    >
+                    <button
+                      class="count-btn"
+                      data-turn="through"
+                      data-vehicle="truck"
+                    >
+                      Count +1
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="vehicle-grid">
-              <!-- Passenger Cars -->
-              <div class="vehicle-card">
-                <div class="vehicle-header">
-                  <h3 class="vehicle-title">
-                    <svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.6-1.2-.9-1.9-1L9 6c-.9 0-1.7.5-2.2 1.3L5 10l-3 .5c-1 .2-1.7 1-1.9 2v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
-                    Passenger Cars
-                  </h3>
-                </div>
-                <div class="vehicle-content">
-                  <span class="badge vehicle-count" id="through-passenger-car-count">0</span>
-                  <button class="count-btn" data-turn="through" data-vehicle="passenger-car">Count +1</button>
-                </div>
-              </div>
-              <!-- Buses -->
-              <div class="vehicle-card">
-                <div class="vehicle-header">
-                  <h3 class="vehicle-title">
-                    <svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6"/><path d="M15 6v6"/><path d="M2 12h19.6"/><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/><circle cx="7" cy="18" r="2"/><path d="M9 18h5"/><circle cx="16" cy="18" r="2"/></svg>
-                    Buses
-                  </h3>
-                </div>
-                <div class="vehicle-content">
-                  <span class="badge vehicle-count" id="through-bus-count">0</span>
-                  <button class="count-btn" data-turn="through" data-vehicle="bus">Count +1</button>
-                </div>
-              </div>
-              <!-- Trucks -->
-              <div class="vehicle-card">
-                <div class="vehicle-header">
-                  <h3 class="vehicle-title">
-                    <svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5"/><path d="M14 17h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
-                    Trucks
-                  </h3>
-                </div>
-                <div class="vehicle-content">
-                  <span class="badge vehicle-count" id="through-truck-count">0</span>
-                  <button class="count-btn" data-turn="through" data-vehicle="truck">Count +1</button>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="tab-content" id="right-turn-content">
-            <div class="turn-header">
-              <div class="turn-title">
-                <!-- Updated Right-Turn icon to match tab -->
-                <svg class="turn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M18 4V12C18 12.663 17.7366 13.2989 17.2678 13.7678C16.7989 14.2366 16.163 14.5 15.5 14.5H9V12C9 11.5955 8.75636 11.2309 8.38268 11.0761C8.00901 10.9213 7.57889 11.0069 7.29289 11.2929L3.29289 15.2929C2.90237 15.6834 2.90237 16.3166 3.29289 16.7071L7.29289 20.7071C7.57889 20.9931 8.00901 21.0786 8.38268 20.9238C8.75636 20.7691 9 20.4044 9 20V17.5H15.5C16.9587 17.5 18.3576 16.9205 19.3891 15.8891C20.4205 14.8576 21 13.4587 21 12V4C21 3.44772 20.5523 3 20 3H19C18.4477 3 18 3.44772 18 4Z" fill="#000000"></path> </g></svg>
-                Right-Turn
-              </div>
-              <div class="badge turn-total">Total: <span id="right-turn-total">0</span></div>
-            </div>
-            <div class="vehicle-grid">
-              <!-- Passenger Cars -->
-              <div class="vehicle-card">
-                <div class="vehicle-header">
-                  <h3 class="vehicle-title">
-                    <svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.6-1.2-.9-1.9-1L9 6c-.9 0-1.7.5-2.2 1.3L5 10l-3 .5c-1 .2-1.7 1-1.9 2v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
-                    Passenger Cars
-                  </h3>
+            <div class="tab-content" id="right-turn-content">
+              <div class="turn-header">
+                <div class="turn-title">
+                  <!-- Updated Right-Turn icon to match tab -->
+                  <svg
+                    class="turn-icon"
+                    viewBox="0 0 24 24"
+                    width="16"
+                    height="16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    transform="rotate(180)"
+                  >
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      <path
+                        d="M18 4V12C18 12.663 17.7366 13.2989 17.2678 13.7678C16.7989 14.2366 16.163 14.5 15.5 14.5H9V12C9 11.5955 8.75636 11.2309 8.38268 11.0761C8.00901 10.9213 7.57889 11.0069 7.29289 11.2929L3.29289 15.2929C2.90237 15.6834 2.90237 16.3166 3.29289 16.7071L7.29289 20.7071C7.57889 20.9931 8.00901 21.0786 8.38268 20.9238C8.75636 20.7691 9 20.4044 9 20V17.5H15.5C16.9587 17.5 18.3576 16.9205 19.3891 15.8891C20.4205 14.8576 21 13.4587 21 12V4C21 3.44772 20.5523 3 20 3H19C18.4477 3 18 3.44772 18 4Z"
+                        fill="#000000"
+                      ></path>
+                    </g>
+                  </svg>
+                  Right-Turn
                 </div>
-                <div class="vehicle-content">
-                  <span class="badge vehicle-count" id="right-turn-passenger-car-count">0</span>
-                  <button class="count-btn" data-turn="right-turn" data-vehicle="passenger-car">Count +1</button>
-                </div>
-              </div>
-              <!-- Buses -->
-              <div class="vehicle-card">
-                <div class="vehicle-header">
-                  <h3 class="vehicle-title">
-                    <svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6"/><path d="M15 6v6"/><path d="M2 12h19.6"/><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/><circle cx="7" cy="18" r="2"/><path d="M9 18h5"/><circle cx="16" cy="18" r="2"/></svg>
-                    Buses
-                  </h3>
-                </div>
-                <div class="vehicle-content">
-                  <span class="badge vehicle-count" id="right-turn-bus-count">0</span>
-                  <button class="count-btn" data-turn="right-turn" data-vehicle="bus">Count +1</button>
+                <div class="badge turn-total">
+                  Total: <span id="right-turn-total">0</span>
                 </div>
               </div>
-              <!-- Trucks -->
-              <div class="vehicle-card">
-                <div class="vehicle-header">
-                  <h3 class="vehicle-title">
-                    <svg class="vehicle-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5"/><path d="M14 17h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
-                    Trucks
-                  </h3>
+              <div class="vehicle-grid">
+                <!-- Private Cars -->
+                <div class="vehicle-card">
+                  <div class="vehicle-header">
+                    <h3 class="vehicle-title">
+                      <svg
+                        class="vehicle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.6-1.2-.9-1.9-1L9 6c-.9 0-1.7.5-2.2 1.3L5 10l-3 .5c-1 .2-1.7 1-1.9 2v3c0 .6.4 1 1 1h2"
+                        />
+                        <circle cx="7" cy="17" r="2" />
+                        <path d="M9 17h6" />
+                        <circle cx="17" cy="17" r="2" />
+                      </svg>
+                      Private Cars
+                    </h3>
+                  </div>
+                  <div class="vehicle-content">
+                    <span
+                      class="badge vehicle-count"
+                      id="right-turn-passenger-car-count"
+                      >0</span
+                    >
+                    <button
+                      class="count-btn"
+                      data-turn="right-turn"
+                      data-vehicle="passenger-car"
+                    >
+                      Count +1
+                    </button>
+                  </div>
                 </div>
-                <div class="vehicle-content">
-                  <span class="badge vehicle-count" id="right-turn-truck-count">0</span>
-                  <button class="count-btn" data-turn="right-turn" data-vehicle="truck">Count +1</button>
+                <!-- Buses -->
+                <div class="vehicle-card">
+                  <div class="vehicle-header">
+                    <h3 class="vehicle-title">
+                      <svg
+                        class="vehicle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M8 6v6" />
+                        <path d="M15 6v6" />
+                        <path d="M2 12h19.6" />
+                        <path
+                          d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"
+                        />
+                        <circle cx="7" cy="18" r="2" />
+                        <path d="M9 18h5" />
+                        <circle cx="16" cy="18" r="2" />
+                      </svg>
+                      Buses
+                    </h3>
+                  </div>
+                  <div class="vehicle-content">
+                    <span class="badge vehicle-count" id="right-turn-bus-count"
+                      >0</span
+                    >
+                    <button
+                      class="count-btn"
+                      data-turn="right-turn"
+                      data-vehicle="bus"
+                    >
+                      Count +1
+                    </button>
+                  </div>
+                </div>
+                <!-- Trucks -->
+                <div class="vehicle-card">
+                  <div class="vehicle-header">
+                    <h3 class="vehicle-title">
+                      <svg
+                        class="vehicle-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M10 17h4V5H2v12h3" />
+                        <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5" />
+                        <path d="M14 17h1" />
+                        <circle cx="7.5" cy="17.5" r="2.5" />
+                        <circle cx="17.5" cy="17.5" r="2.5" />
+                      </svg>
+                      Trucks
+                    </h3>
+                  </div>
+                  <div class="vehicle-content">
+                    <span
+                      class="badge vehicle-count"
+                      id="right-turn-truck-count"
+                      >0</span
+                    >
+                    <button
+                      class="count-btn"
+                      data-turn="right-turn"
+                      data-vehicle="truck"
+                    >
+                      Count +1
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="card-footer">
-        <div class="overall-total">
-          Overall Total: <span class="badge" id="overall-total">0</span>
-        </div>
-        <div class="action-buttons">
-          <button class="reset-btn" id="reset-btn">
-            <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
-            Reset
-          </button>
-          <button class="save-btn" id="save-btn">
-            <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-            Save
-          </button>
+        <div class="card-footer">
+          <div class="overall-total">
+            Overall Total: <span class="badge" id="overall-total">0</span>
+          </div>
+          <div class="action-buttons">
+            <button class="reset-btn" id="reset-btn">
+              <svg
+                class="btn-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                <path d="M3 3v5h5" />
+                <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+                <path d="M16 21h5v-5" />
+              </svg>
+              Reset
+            </button>
+            <button class="save-btn" id="save-btn">
+              <svg
+                class="btn-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
+                />
+                <polyline points="17 21 17 13 7 13 7 21" />
+                <polyline points="7 3 7 8 15 8" />
+              </svg>
+              Save
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="toast-container" id="toast-container"></div>
+    <div class="toast-container" id="toast-container"></div>
 
-  <script src="./script.js"></script>
-</body>
+    <script src="./script.js"></script>
+  </body>
 </html>
